@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+  backend:
+    container_name: accident_backend
+    build:
+      context: ${GOPATH}/src/github.com/dwarvesf/devops-assignment/backend
+    image: accident_backend
+    environment:
+      DB_USERNAME: test
+      DB_PASSWORD: test
+      DB_NAME: accident
+      DB_HOST: accident_db
+      DB_PORT: 3306
+      DEBUG: "1"
+    external_links:
+      - accident_db
+    ports:
+    - "1323:1323"
+    networks:
+      accident-nw:
+        ipv4_address: 172.18.0.3
+
+networks:
+  accident-nw:
+    name: app_accident

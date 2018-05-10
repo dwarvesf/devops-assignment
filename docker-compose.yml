@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  postgres:
+    image: mysql:5.7
+    container_name: accident_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: accident
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    volumes:
+      - ./seed.sql:/sql/seed.sql
+    ports:
+      - "3310:3306"
+    expose:
+      - "3306"
+    networks:
+      accident-nw:
+        ipv4_address: 172.18.0.2
+  
+networks:
+  accident-nw:
+    name: app_accident
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
